@@ -52,6 +52,24 @@ public class SftpConfig {
 
     }
 
+    /* armazenar imagem servidor SFTP e local*/
+    public static void salvarImagemLocalSftp(String pathLocal, String originalFilename) throws SftpException, JSchException {
+
+        Session jschSession = null;
+
+        Channel sftp = null;
+        // transfer file from local to remote server
+        ChannelSftp channelSftp = setupJsch();
+        channelSftp.connect(50000);
+
+        channelSftp.put(pathLocal,channelSftp.getHome() + "/" + originalFilename );
+
+        channelSftp.exit();
+
+        System.out.println("Done");
+
+    }
+
     /* buscar imagem servidor sftp e transferir para pasta local */
     public static void buscarImagemSftp(String originalFilename) throws SftpException, JSchException {
 
